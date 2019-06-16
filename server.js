@@ -1,43 +1,109 @@
+
+
 var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
 
-var axios = require("axios");
-var cheerio = require("cheerio");
-var db = require("./models");
-
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8000;
 var app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 
-app.use(logger("dev"));
-// Parse application body as JSON
+// Parse application body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
-
-
-//connection to mongoose
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-mongoose.connect(MONGODB_URI);
-
-
-// Set Handlebars.
 var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Import routes and give the server access to them.
-var routes = require("./controllers/catsController.js");
+// var routes = require("./controllers/");
 
 app.use(routes);
 
-// Start our server so that it can begin listening to client requests.
+
+
+
+var logger = require("morgan");
+var mongoose = require("mongoose");
+
+var axios = require("axios");
+var cheerio = require("cheerio");
+
+// Require all models
+var db = require("./models");
+
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+
+// Connect to the Mongo DB
+mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+
+
+
 app.listen(PORT, function() {
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT);
+  console.log("localhost:" + PORT);
 });
+
+
+
+
+// //dependencies
+// const express = require('express'),
+//       mongoose = require('mongoose'),
+//       exphbs = require('express-handlebars'),
+//       bodyParser = require('body-parser'),
+//       logger = require('morgan'),
+//       path = require('path'),
+//       favicon = require('serve-favicon');
+
+
+// //initializing the app
+// const app = express();
+
+// //setting up the database
+// const config = require('./config/database');
+// mongoose.Promise = Promise;
+// mongoose
+//   .connect(config.database)
+//   .then( result => {
+//     console.log(`Connected to database '${result.connections[0].name}' on ${result.connections[0].host}:${result.connections[0].port}`);
+//   })
+//   .catch(err => console.log('There was an error with your connection:', err));
+
+// //setting up favicon middleware
+// app.use(favicon(path.join(__dirname, 'public', 'assets/img/favicon.ico')));
+
+// //setting up Morgan middleware
+// app.use(logger('dev'));
+
+// //setting up body parser middleware
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+
+// //setting up handlebars middleware
+// app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+// app.set('view engine', 'handlebars');
+
+// //setting up the static directory
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use('/articles',express.static(path.join(__dirname, 'public')));
+// app.use('/notes',express.static(path.join(__dirname, 'public')));
+
+
+// //setting up routes
+// const index = require('./routes/index'),
+//       articles = require('./routes/articles'),
+//       notes = require('./routes/notes'),
+//       scrape = require('./routes/scrape');
+
+// app.use('/', index);
+// app.use('/articles', articles);
+// app.use('/notes', notes);
+// app.use('/scrape', scrape);
+
+// //starting server
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, function () {
+//   console.log(`Listening on http://localhost:${PORT}`);
+// });

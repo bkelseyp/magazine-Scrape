@@ -1,0 +1,52 @@
+<!-- Modal Trigger to view all articles-->
+
+<div class="row">
+    <div class="col s12">
+        {{#if @root.saved}}
+        <h1>Articles Saved 
+        </h1>
+        {{else}}
+        <h1>All Articles Scraped 
+        </h1>
+        {{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col s10 offset-s1">
+        <table class="table highlight responsive-table" id="articles-table">
+            <thead>
+                <tr>
+                    <th scope="col">Article Title</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">ID</th>
+                    <th scope="col" colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each articles}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td><a href='{{link}}'>{{link}}</a></td>
+                    <td>{{id}}</td>
+                    <td>
+                       {{#if @root.saved}}
+                        <a id="article-view" class="article-view" data-id="{{id}}" data-title="{{title}}" data-link="{{link}}">
+                            <i class="link large material-icons article-view" style="font-size:36px">info</i>
+                        </a>
+                        {{else}}
+                        <a id="article-save" class="article-save" data-id="{{id}}" data-title="{{title}}" data-link="{{link}}">
+                            <i class="link large material-icons article-save" style="font-size:36px">backup</i>
+                        </a>
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- This is for the create  modal -->
+{{> note.create }}
+
+<script src="../assets/js/articles.js"></script>

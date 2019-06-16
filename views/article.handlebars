@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col s10 offset-s1">
+        <div class="card">
+            <div class="card-image">
+                {{!--
+                <img src="{{article.imgUrl}}"> --}}
+            </div>
+        </div>
+
+        <div id="event-card" class="card grey lighten-4 card small">
+            <div class="card-content grey-text text-darken-4">
+                <span class="card-title event-detail-title center">
+                    <h3>{{article.title}}</h3>
+                </span>
+                <div class="divider"></div>
+                <div class="col s3">
+                    <div class="row field-row">
+                        <div class="event-field-label">
+                            Article URL
+                        </div>
+                        <br>
+                        <div class="event-field" id="article-link"> <a href='{{article.link}}'>{{article.link}}</a></div>
+                    </div>
+                </div>
+                {{!--
+                <a class="btn-floating halfway-fab waves-effect waves-light teal edit-article" data-id={{article.id}}>
+                    <i class="material-icons">edit</i>
+                </a> --}}
+
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large orange">
+                        <i class="large material-icons list-btn">list</i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="btn-floating blue create-note" data-id={{article.id}}>
+                                <i class="material-icons edit-button">edit</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{!-- show articles notes --}}
+<div class="row">
+    <div id="event-volunteers-header" class="col s10 offset-s1 volunteer-table">
+        <h3 class="volunteer-header center white lighten-3" style="padding: 20px; margin-bottom:0px">Notes</h3>
+        <div class="z-depth-2">
+            <table class="table highlight responsive-table white lighten-2" id="events-table">
+                <thead class="black">
+                    <tr>
+                        <th class="event-th volunteers-th" scope="col">Note Title</th>
+                        <th class="event-th volunteers-th" scope="col">Note Desc</th>
+                        <th class="event-th volunteers-th" scope="col">Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each note}}
+                    <tr>
+                        <td class="event-td">{{title}}</td>
+                        <td class="event-td">{{body}}</td>
+                        <td class="center">
+                            <a class="note-see" data-id="{{id}}">
+                                <i class="link large material-icons see-user"  style="font-size:36px">info_outline</i>
+                            </a>
+                            <a class="note-delete" data-noteid="{{id}}" data-articleid="{{@root.article.id}}">
+                                <i class="link large material-icons remove-user" style="font-size:36px">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- This is for the new note modal -->
+{{> note.create }}
+
+<script src="../assets/js/note_show.js"></script>

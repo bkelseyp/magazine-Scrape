@@ -1,0 +1,22 @@
+<div id="newNote" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Notes</h4>
+
+    <form action="">
+
+      <div class="form-group">
+        <label for="note-title">Note Title</label>
+        <input id="note-title" name="note-title" type="text" class="form-control" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="note-body">Note Desc</label>
+        <input id="note-body" name="note-body" type="text" class="form-control">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    {{!--
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat cancel">cancel</a> --}}
+    <a href="#!" data-id="{{article.id}}" id="saveNote" class="modal-action modal-close waves-effect waves-green btn-flat save">Save Note</a>
+  </div>
+</div>
